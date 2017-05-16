@@ -29,13 +29,12 @@ public class Check extends HttpServlet {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 
-		if (email.equals("admin@testing.com")) {
-			if (password.equals("123")) {
+		if ((email.equals("admin@testing.com")) && (password.equals("123"))){
 				HttpSession s1 = req.getSession();
 				s1.setAttribute("email", email);
 				req.getRequestDispatcher("a.html").include(req, resp);
 			}
-		} else {
+		 else {
 			resp.sendRedirect("login");
 		}
 	}
