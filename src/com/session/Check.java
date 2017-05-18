@@ -12,14 +12,13 @@ import javax.servlet.http.HttpSession;
 public class Check extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		resp.setContentType("text/html");
 
 		String email = SessionHelper.currentUser(req);
 		if (email != null) {
 
 			req.getRequestDispatcher("a.html").include(req, resp);
 		} else {
-			req.getRequestDispatcher("index.html").include(req, resp);
+			resp.sendRedirect("login");
 		}
 	}
 
