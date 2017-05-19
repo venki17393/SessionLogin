@@ -63,30 +63,25 @@ public class SignUp extends HttpServlet {
 			e1.printStackTrace();
 		}*/
 		
-		Key emaill = KeyFactory.createKey("Contact",email);
-		try {
-			Entity temp = ds.get(emaill);
-			System.out.println(temp);
-				resp.sendRedirect("signup");
-			
+		String isPresent = SessionHelper.isPresent(email);
+		if(isPresent!=null){
+			resp.sendRedirect("signup");
 		}
-		 catch (EntityNotFoundException e1) {
-			// TODO Auto-generated catch block
-			 Entity contact = new Entity("Contact", email);
-				contact.setProperty("Name", name);
-				contact.setProperty("Password", password);
-				contact.setProperty("Email", email);
-				ds.put(contact);
-				HttpSession s1 = req.getSession(false);
-				String session = SessionHelper.currentUser(req);
-				if (session != null) {
-					s1.invalidate();
-				}
-				s1 = req.getSession();
-				s1.setAttribute("email", email);
-				resp.sendRedirect("dashboard");
-			
-			//e1.printStackTrace();
+		
+		else {
+			Entity contact = new Entity("Contact", email);
+			contact.setProperty("Name", name);
+			contact.setProperty("Password", password);
+			contact.setProperty("Email", email);
+			ds.put(contact);
+			HttpSession s1 = req.getSession(false);
+			String session = SessionHelper.currentUser(req);
+			if (session != null) {
+				s1.invalidate();
+			}
+			s1 = req.getSession();
+			s1.setAttribute("email", email);
+			resp.sendRedirect("dashboard");
 		}
 	
 	//	System.out.println(temp.getKey());
