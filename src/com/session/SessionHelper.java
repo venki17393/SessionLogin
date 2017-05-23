@@ -22,18 +22,18 @@ public class SessionHelper {
 		}
 	}
 	
-	public static String  isPresent(String email){
+	public static boolean  isPresent(String email){
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		Key emaill = KeyFactory.createKey("Contact",email);
 		try {
 			Entity temp = ds.get(emaill);
 			System.out.println(temp);
-			return "present";
+			return true;
 			
 		}
 		 catch (EntityNotFoundException e1) {
 			// TODO Auto-generated catch block
-				return null;
+				return false;
 			
 			//e1.printStackTrace();
 		}

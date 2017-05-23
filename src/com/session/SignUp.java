@@ -63,8 +63,8 @@ public class SignUp extends HttpServlet {
 			e1.printStackTrace();
 		}*/
 		
-		String isPresent = SessionHelper.isPresent(email);
-		if(isPresent!=null){
+		boolean isPresent = SessionHelper.isPresent(email);
+		if(isPresent){
 			resp.sendRedirect("signup");
 		}
 		
