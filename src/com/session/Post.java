@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.google.appengine.labs.repackaged.org.json.JSONException;
+
 //import org.mortbay.util.ajax.JSON;
 
 public class Post extends HttpServlet {
@@ -16,10 +18,19 @@ public class Post extends HttpServlet {
 
 		resp.setContentType("application/json");
 		PrintWriter out = resp.getWriter();
+		String  requestNumber = req.getPathInfo();
+		
 
-		PostPojo post = SessionHelper.getPostContent();
-		ObjectMapper mapper = new ObjectMapper();
-		out.println(mapper.writeValueAsString(post));
+		PostPojo post;
+		try {
+			post = SessionHelper.getPostContent(requestNumber);
+			ObjectMapper mapper = new ObjectMapper();
+			out.println(mapper.writeValueAsString(post));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 	}
 }
