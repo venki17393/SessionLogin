@@ -9,6 +9,8 @@ import java.net.URL;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -21,6 +23,9 @@ import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
 public class SessionHelper {
+	static PostPojo post = null;
+	 static ObjectMapper mapper = new ObjectMapper();
+	static JSONObject json = new JSONObject();
 	public static String currentUser(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		if (session != null) {
@@ -47,12 +52,17 @@ public class SessionHelper {
 		}
 
 	}
+	public static PostPojo wrongUrl() throws JSONException, JsonParseException, JsonMappingException, IOException {
+		json.put("ok", false);
+		json.put("message", "invalid post id, please pass between 1 and 10");
+		String string = json.toString();
+		post = mapper.readValue(string, PostPojo.class);
 
+		return post;
+	}
 	public static PostPojo getPostContent(String requestNumber) throws IOException, JSONException {
 
-		ObjectMapper mapper = new ObjectMapper();
-		PostPojo post = null;
-		JSONObject json = new JSONObject();
+		
 		try {
 			String temp = requestNumber.substring(1);
 			int lastChar = Integer.parseInt(temp);
@@ -79,31 +89,24 @@ public class SessionHelper {
 				json.put("message", "found");
 				String string = sb.toString();
 				String jsonString = json.toString();
-				string=string.concat(jsonString);
+				string = string.concat(jsonString);
 				post = mapper.readValue(string, PostPojo.class);
 				System.out.println(string);
-				//post = mapper.readValue(jsonString, PostPojo.class);
+				// post = mapper.readValue(jsonString, PostPojo.class);
 
 				return post;
 			} else {
 
-				json.put("ok", false);
-				json.put("message", "invalid post id, please pass between 1 and 10");
-				String string = json.toString();
-				post = mapper.readValue(string, PostPojo.class);
-
+				post = wrongUrl();
 				return post;
 			}
 		} catch (NumberFormatException e) {
-			// TODO: handle exception
+			post = wrongUrl();
+			return post;
+		}
 
-			
-
-			json.put("ok", false);
-			json.put("message", "invalid post id, please pass between 1 and 10");
-			String string = json.toString();
-			post = mapper.readValue(string, PostPojo.class);
-
+		catch (NullPointerException e) {
+			post = wrongUrl();
 			return post;
 		}
 
