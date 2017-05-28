@@ -68,7 +68,7 @@ public class SessionHelper {
 	}
 
 	public static PostPojo getPostContent(String requestNumber) throws IOException, JSONException {
-
+		PostPojo pj = new PostPojo();
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		String key = requestNumber;
 		Expiration expiration = Expiration.byDeltaSeconds(20);
@@ -81,7 +81,8 @@ public class SessionHelper {
 			if (value == null) {
 				System.out.println("Setting the cache");
 				value = BigInteger.valueOf(count).toByteArray();
-				syncCache.put(key, value, expiration);
+				syncCache.put(key,pj, expiration);
+				
 				String temp = requestNumber.substring(1);
 				int lastChar = Integer.parseInt(temp);
 				if (lastChar > 0 && lastChar < 11) {

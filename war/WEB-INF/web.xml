@@ -14,7 +14,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>Post</servlet-name>
-		<servlet-class>com.session.Post</servlet-class>
+		<servlet-class>com.session.PostServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Post</servlet-name>

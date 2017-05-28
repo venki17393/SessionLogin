@@ -1,13 +1,17 @@
 package com.session;
 
-public class PostPojo  {
+import java.io.Serializable;
+
+public class PostPojo implements Serializable  {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int userId;
 	private int id;
 	private String title ;
 	private String body ;
-	private String ok;
-	private String message;
 	
 	public int getUserId() {
 		return userId;
@@ -15,18 +19,7 @@ public class PostPojo  {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public String getOk() {
-		return ok;
-	}
-	public void setOk(String ok) {
-		this.ok = ok;
-	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
-	}
+	
 	public int getId() {
 		return id;
 	}
