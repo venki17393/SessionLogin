@@ -34,7 +34,9 @@ public class PostServlet extends HttpServlet {
 		PostPojo post = null;
 
 		try {
-			String path = req.getPathInfo().substring(1);
+			String path = req.getPathInfo();
+			if(path!=null){
+				path=path.substring(1);
 			int requestNumber = Integer.parseInt(path);
 			if (requestNumber > 0 && requestNumber < 11) {
 				post = ps.getPost(requestNumber);
@@ -44,13 +46,25 @@ public class PostServlet extends HttpServlet {
 				finalJson.put("post", post);
 
 				out.println(mapper.writeValueAsString(finalJson));
-			} else {
+			} 
+			
+				
+			
+			else {	
 				finalJson.put("ok", false);
 				finalJson.put("message", "Please enter between 1 and 10");
 				finalJson.put("post", post);
 				out.println(mapper.writeValueAsString(finalJson));
 
 			}
+			}
+			else {
+				finalJson.put("ok", false);
+				finalJson.put("message", "Please enter between 1 and 10");
+				finalJson.put("post", post);
+				out.println(mapper.writeValueAsString(finalJson));
+			}
+			
 		} 
 
 		catch (NumberFormatException e) {
@@ -61,12 +75,7 @@ public class PostServlet extends HttpServlet {
 
 		}
 
-		catch (NullPointerException e) {
-			finalJson.put("ok", false);
-			finalJson.put("message", "Please enter between 1 and 10");
-			finalJson.put("post", post);
-			out.println(mapper.writeValueAsString(finalJson));
-		}
+		
 		catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
