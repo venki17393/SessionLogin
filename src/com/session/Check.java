@@ -7,10 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.google.appengine.api.datastore.FetchOptions;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
@@ -21,10 +20,14 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 public class Check extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
+		
 		String email = SessionHelper.currentUser(req);
 		if (email != null) {
 
@@ -64,7 +67,7 @@ public class Check extends HttpServlet {
 		int entities = pd.countEntities();
 		if(entities == 1){
 			HttpSession s1 = req.getSession();
-			s1.setAttribute("email", email);
+			s1.setAttribute("email",email);
 			resp.sendRedirect("dashboard");
 		}
 		else {
