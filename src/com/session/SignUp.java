@@ -83,8 +83,10 @@ public class SignUp extends HttpServlet {
 	public static Entity  addinfo (String email, String name, String password){
 		Entity contact = new Entity("Contact", email);
 		contact.setProperty("Name", name);
-		contact.setProperty("Password", password);
 		contact.setProperty("Email", email);
+		if(password!=null){
+			contact.setProperty("Password", password);
+		}
 		ds.put(contact);
 		return contact;
 		

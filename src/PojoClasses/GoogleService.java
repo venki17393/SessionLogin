@@ -51,11 +51,9 @@ public class GoogleService {
 			outputString += line;
 		}
 		GoogleInfo info = mapper.readValue(outputString, GoogleInfo.class);
-		if (info != null) {
+		
 			return info;	
-		} else {
-			return null;
-		}
+		
 
 	}
 }
