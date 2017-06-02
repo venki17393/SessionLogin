@@ -37,14 +37,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<url-pattern>/google</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>GoogleRespNext</servlet-name>
-		<servlet-class>com.session.GoogleRespNext</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GoogleServlet</servlet-name>
-		<url-pattern>/googlerespnext</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<servlet-name>Logout</servlet-name>
 		<servlet-class>com.session.Logout</servlet-class>
 	</servlet>

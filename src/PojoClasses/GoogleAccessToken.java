@@ -1,6 +1,6 @@
 package PojoClasses;
 
-public class Google {
+public class GoogleAccessToken {
 	private String access_token;
 	private String token_type;
 	private int expires_in;

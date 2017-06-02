@@ -17,7 +17,6 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 
-
 public class Check extends HttpServlet {
 
 	/**
@@ -27,7 +26,7 @@ public class Check extends HttpServlet {
 	DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		
+
 		String email = SessionHelper.currentUser(req);
 		if (email != null) {
 
@@ -39,39 +38,37 @@ public class Check extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		resp.setContentType("text/html");
-		int count = 0;
+
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
-		/*Query q1 = new Query("Contact");
-		PreparedQuery prepd = ds.prepare(q1);
-		for (Entity ent : prepd.asIterable()) {
-			String dname = (String) ent.getProperty("Email");
-			String dpass = ent.getProperty("Password").toString();
-			if ((dname.equals(email)) && (dpass.equals(password))) {
-				HttpSession s1 = req.getSession();
-				s1.setAttribute("email", email);
-				count = 1;
-				break;
-			} else {
-				count = 0;
-
-			}*/
-		
-		
-		Filter checkEmail	= new FilterPredicate("Email", FilterOperator.EQUAL, email);
-		Filter checkPassword =	new FilterPredicate ("Password", FilterOperator.EQUAL, password);
-		Filter heightOutOfRangeFilter = CompositeFilterOperator.and(checkEmail,checkPassword);
+		/*
+		 * Query q1 = new Query("Contact"); PreparedQuery prepd =
+		 * ds.prepare(q1); for (Entity ent : prepd.asIterable()) { String dname
+		 * = (String) ent.getProperty("Email"); String dpass =
+		 * ent.getProperty("Password").toString(); if ((dname.equals(email)) &&
+		 * (dpass.equals(password))) { HttpSession s1 = req.getSession();
+		 * s1.setAttribute("email", email); count = 1; break; } else { count =
+		 * 0;
+		 * 
+		 * }
+		 */
+		System.out.println("pwd is " + password);
+		Filter checkEmail = new FilterPredicate("Email", FilterOperator.EQUAL, email);
+		Filter checkPassword = new FilterPredicate("Password", FilterOperator.EQUAL, password);
+		;
+		Filter heightOutOfRangeFilter = CompositeFilterOperator.and(checkEmail, checkPassword);
 
 		Query q = new Query("Contact").setFilter(heightOutOfRangeFilter);
-		PreparedQuery pd=ds.prepare(q);
+
+		PreparedQuery pd = ds.prepare(q);
 		int entities = pd.countEntities();
-		if(entities == 1){
+
+		if (entities == 1) {
 			HttpSession s1 = req.getSession();
-			s1.setAttribute("email",email);
+			s1.setAttribute("email", email);
 			resp.sendRedirect("dashboard");
-		}
-		else {
+		} else {
 			resp.sendRedirect("login");
 		}
-		}
 	}
+}

@@ -9,8 +9,15 @@ public class GoogleInfo {
 	private String name;
 	private String given_name;
 	private String family_name;
-	private URL picture;
+	private String picture;
 	private String hd;
+	private String locale;
+	public String getLocale() {
+		return locale;
+	}
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
 	public String getId() {
 		return id;
 	}
@@ -53,10 +60,10 @@ public class GoogleInfo {
 	public void setFamily_name(String family_name) {
 		this.family_name = family_name;
 	}
-	public URL getPicture() {
+	public String getPicture() {
 		return picture;
 	}
-	public void setPicture(URL picture) {
+	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 	

@@ -8,6 +8,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/User.FULL328-WIN.001/AppData/Local/Microsoft/Windows/INetCache/IE/SAHRQULG/jackson-all-1.9.0[1].jar"/>
-	<classpathentry kind="con" path="com.google.gdt.eclipse.managedapis.MANAGED_API_CONTAINER/plus-v1r523lv1.21.0"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

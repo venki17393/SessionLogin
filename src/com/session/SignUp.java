@@ -19,7 +19,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 
 public class SignUp extends HttpServlet {
-	DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+	static DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		req.getRequestDispatcher("Signup.html").include(req, resp);
@@ -69,11 +69,7 @@ public class SignUp extends HttpServlet {
 		}
 		
 		else {
-			Entity contact = new Entity("Contact", email);
-			contact.setProperty("Name", name);
-			contact.setProperty("Password", password);
-			contact.setProperty("Email", email);
-			ds.put(contact);
+			Entity info = SignUp.addinfo(email, name, password);
 			HttpSession s1 = req.getSession(false);
 			String session = SessionHelper.currentUser(req);
 			if (session != null) {
@@ -83,12 +79,17 @@ public class SignUp extends HttpServlet {
 			s1.setAttribute("email", email);
 			resp.sendRedirect("dashboard");
 		}
-	
-	//	System.out.println(temp.getKey());
-		//SSystem.out.println(temp.getProperty("Email"));
-		//System.out.println(pd);
-		//System.out.println(entities);
+	}
+	public static Entity  addinfo (String email, String name, String password){
+		Entity contact = new Entity("Contact", email);
+		contact.setProperty("Name", name);
+		contact.setProperty("Password", password);
+		contact.setProperty("Email", email);
+		ds.put(contact);
+		return contact;
+		
+	}
 		
 		
-}
+
 }
