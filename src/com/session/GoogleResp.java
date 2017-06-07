@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.appengine.api.datastore.Entity;
-
-import PojoClasses.GoogleInfo;
-import PojoClasses.GoogleService;
+import com.session.helper.Contact;
+import com.session.helper.GoogleInfo;
+import com.session.helper.GoogleService;
 
 public class GoogleResp extends HttpServlet {
 
@@ -33,9 +33,8 @@ public class GoogleResp extends HttpServlet {
 			}
 
 			else {
-
-				String accessToken = GoogleService.getAccessToken(authcode);
-
+				StringBuffer reqUrl = req.getRequestURL();
+				String accessToken = GoogleService.getAccessToken(authcode,reqUrl);
 				if (accessToken == null) {
 					/// login?error=token_fetch_error
 					resp.sendRedirect("login?error=token_fetch_error");
@@ -43,7 +42,9 @@ public class GoogleResp extends HttpServlet {
 				}
 
 				else {
+				
 					post = GoogleService.getUserInfo(accessToken);
+				
 				}
 
 				if (post != null) {
@@ -60,7 +61,7 @@ public class GoogleResp extends HttpServlet {
 							String name = post.getGiven_name();
 							String password = null;
 							// System.out.println(name);
-							Entity contact = SignUp.addinfo(email, name, password);
+							SignUp.addinfo(email, name, password);
 							HttpSession s1 = req.getSession(false);
 							String session = SessionHelper.currentUser(req);
 							if (session != null) {
@@ -76,6 +77,7 @@ public class GoogleResp extends HttpServlet {
 				}
 			}
 		} catch (Exception e) {
+
 			resp.sendRedirect("login?exception_occured");
 		}
 	}

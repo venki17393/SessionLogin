@@ -1,11 +1,15 @@
 package com.session;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,17 +18,12 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
+import com.session.helper.Contact;
 
 public class SessionHelper {
 	static PostPojo post = null;
@@ -42,20 +41,42 @@ public class SessionHelper {
 	}
 
 	public static boolean isPresent(String email) {
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-		Key emaill = KeyFactory.createKey("Contact", email);
-		try {
-			Entity temp = ds.get(emaill);
-			System.out.println(temp);
-			return true;
+		// TO CHECK USING LOW-LEVEL
+		/*
+		 * DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+		 * Key emaill = KeyFactory.createKey("Contact", email); try { Entity
+		 * temp = ds.get(emaill); System.out.println(temp); return true;
+		 * 
+		 * } catch (EntityNotFoundException e1) { // TODO Auto-generated catch
+		 * block return false;
+		 * 
+		 * // e1.printStackTrace(); }
+		 */
 
-		} catch (EntityNotFoundException e1) {
-			// TODO Auto-generated catch block
+		// TO CHECK USING OBJECTIFY
+		// List<Contact> existingEmail =
+		// ofy().load().type(Contact.class).filter("Email",email).list();
+		/*
+		 * UserService userService = UserServiceFactory.getUserService();
+		 * List<Contact> existingEmail =
+		 * ofy().load().type(Contact.class).filter("Email==",email).list();
+		 * 
+		 * System.out.println(existingEmail.toString());
+		 * if(existingEmail.isEmpty()){ System.out.println("empty"); return
+		 * false; } else { System.out.println("not empty"); return true; }
+		 */
+
+		List<Contact> q = ofy().load().type(Contact.class).filter("Email ==", email).list();
+		System.out.println(q);
+		if (q.isEmpty()) {
+			//System.out.println("if");
 			return false;
-
-			// e1.printStackTrace();
 		}
 
+		else {
+
+			return true;
+		}
 	}
 
 	public static PostPojo wrongUrl() throws JSONException, JsonParseException, JsonMappingException, IOException {
@@ -81,8 +102,8 @@ public class SessionHelper {
 			if (value == null) {
 				System.out.println("Setting the cache");
 				value = BigInteger.valueOf(count).toByteArray();
-				syncCache.put(key,pj, expiration);
-				
+				syncCache.put(key, pj, expiration);
+
 				String temp = requestNumber.substring(1);
 				int lastChar = Integer.parseInt(temp);
 				if (lastChar > 0 && lastChar < 11) {

@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.google.appengine.labs.repackaged.org.json.JSONException;
-
-import PojoClasses.PostService;
+import com.session.helper.PostService;
 
 //import org.mortbay.util.ajax.JSON;
 
