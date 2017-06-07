@@ -19,6 +19,7 @@ public class Contact {
 		this.Email = email;
 		this.Name = name;
 		this.Password = password;
+		
 	}
 
 	public Contact(String email, String name) {

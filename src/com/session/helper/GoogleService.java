@@ -12,11 +12,12 @@ import org.codehaus.jackson.map.ObjectMapper;
 public class GoogleService {
 	static ObjectMapper mapper = new ObjectMapper();
 
-	public static String getAccessToken(String authcode) throws IOException {
+	public static String getAccessToken(String authcode, StringBuffer reqUrl) throws IOException {
 		URL url = new URL("https://www.googleapis.com/oauth2/v4/token");
 		String params = "&code=" + authcode
-				+ "&client_id=905323826918-g2vne7tcluchca01k6giosj88hhbc3el.apps.googleusercontent.com&client_secret=vEzUVdnDTVHBV3F8yy0P0pHN&redirect_uri=http://1-dot-loginsession-167805.appspot.com/googleresp&grant_type=authorization_code";
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();																					
+				+ "&client_id=905323826918-g2vne7tcluchca01k6giosj88hhbc3el.apps.googleusercontent.com&client_secret=vEzUVdnDTVHBV3F8yy0P0pHN&redirect_uri="
+				+ reqUrl + "&grant_type=authorization_code";
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 		con.setDoOutput(true);
@@ -51,9 +52,8 @@ public class GoogleService {
 			outputString += line;
 		}
 		GoogleInfo info = mapper.readValue(outputString, GoogleInfo.class);
-		
-			return info;	
-		
+
+		return info;
 
 	}
 }
