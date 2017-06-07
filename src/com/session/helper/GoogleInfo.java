@@ -1,4 +1,4 @@
-package PojoClasses;
+package com.session.helper;
 
 import java.net.URL;
 

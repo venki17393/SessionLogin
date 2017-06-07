@@ -1,4 +1,4 @@
-package PojoClasses;
+package com.session.helper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,8 +15,8 @@ public class GoogleService {
 	public static String getAccessToken(String authcode) throws IOException {
 		URL url = new URL("https://www.googleapis.com/oauth2/v4/token");
 		String params = "&code=" + authcode
-				+ "&client_id=905323826918-g2vne7tcluchca01k6giosj88hhbc3el.apps.googleusercontent.com&client_secret=vEzUVdnDTVHBV3F8yy0P0pHN&redirect_uri=http://localhost:8888/googleresp&grant_type=authorization_code";
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+				+ "&client_id=905323826918-g2vne7tcluchca01k6giosj88hhbc3el.apps.googleusercontent.com&client_secret=vEzUVdnDTVHBV3F8yy0P0pHN&redirect_uri=http://1-dot-loginsession-167805.appspot.com/googleresp&grant_type=authorization_code";
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();																					
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 		con.setDoOutput(true);

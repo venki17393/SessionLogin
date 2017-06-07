@@ -8,5 +8,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/User.FULL328-WIN.001/AppData/Local/Microsoft/Windows/INetCache/IE/SAHRQULG/jackson-all-1.9.0[1].jar"/>
+	<classpathentry kind="lib" path="C:/Users/User.FULL328-WIN.001/Downloads/objectify-5.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User.FULL328-WIN.001/Downloads/guava-20.0.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

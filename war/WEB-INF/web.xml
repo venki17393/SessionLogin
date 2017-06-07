@@ -28,6 +28,19 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<servlet-name>Post</servlet-name>
 		<url-pattern>/post/*</url-pattern>
 	</servlet-mapping>
+	
+	<filter>
+  <filter-name>ObjectifyFilter</filter-name>
+  <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+</filter>
+<filter-mapping>
+  <filter-name>ObjectifyFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+</filter-mapping>
+<listener>
+  <listener-class>com.session.helper.OfyHelper</listener-class>
+</listener>
+	
 	<servlet>
 		<servlet-name>GoogleServlet</servlet-name>
 		<servlet-class>com.session.GoogleServlet</servlet-class>

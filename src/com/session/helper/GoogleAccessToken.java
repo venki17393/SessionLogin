@@ -1,4 +1,4 @@
-package PojoClasses;
+package com.session.helper;
 
 public class GoogleAccessToken {
 	private String access_token;
