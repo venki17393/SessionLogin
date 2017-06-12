@@ -95,10 +95,16 @@ public class SessionHelper {
 		return post;
 	}
 	
-	public static void getUserInfo(String email,HttpServletResponse resp) throws IOException, EntityNotFoundException {
+	public static JSONObject getUserInfo(String email,HttpServletResponse resp) throws IOException, EntityNotFoundException, JSONException {
 		resp.setContentType("application/json");
-		PrintWriter out = resp.getWriter();
-		out.println("hello,"+email);
+		/*PrintWriter out = resp.getWriter();
+		out.println("hello,"+email);*/
+		
+		
+		json.put("Email",email);
+		
+		System.out.println(json);
+		return json;
 	
 		
 	}
