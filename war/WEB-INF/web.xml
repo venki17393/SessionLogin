@@ -50,6 +50,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<url-pattern>/google</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>UserInfoServlet</servlet-name>
+		<servlet-class>com.session.UserInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserInfoServlet</servlet-name>
+		<url-pattern>/userinfo</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>Logout</servlet-name>
 		<servlet-class>com.session.Logout</servlet-class>
 	</servlet>

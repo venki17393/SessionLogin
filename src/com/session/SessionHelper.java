@@ -5,19 +5,26 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
@@ -69,7 +76,7 @@ public class SessionHelper {
 		List<Contact> q = ofy().load().type(Contact.class).filter("Email ==", email).list();
 		System.out.println(q);
 		if (q.isEmpty()) {
-			//System.out.println("if");
+			// System.out.println("if");
 			return false;
 		}
 
@@ -86,6 +93,20 @@ public class SessionHelper {
 		post = mapper.readValue(string, PostPojo.class);
 
 		return post;
+	}
+	
+	public static JSONObject getUserInfo(String email,HttpServletResponse resp) throws IOException, EntityNotFoundException, JSONException {
+		resp.setContentType("application/json");
+		/*PrintWriter out = resp.getWriter();
+		out.println("hello,"+email);*/
+		
+		
+		json.put("Email",email);
+		
+		System.out.println(json);
+		return json;
+	
+		
 	}
 
 	public static PostPojo getPostContent(String requestNumber) throws IOException, JSONException {

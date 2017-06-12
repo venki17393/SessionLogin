@@ -1,11 +1,30 @@
 <html>
 <body>
-<form action="logout" method="get">
-<h1>Hello!!!</h1>
-<br>
-<input type="submit" value="Logout">
+	<form action="logout" method="get">
+		<h1>Hello!!!</h1>
+		<input type='button' onclick='getUserInformation()' value='Get Information' /> 
+			<br> 
+			<input type="submit" value="Logout"> <br>
+			<p id="demo"></p>
+	</form>
+	<script>
+function getUserInformation() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "/userinfo", true);
+  xhttp.send();
+}
+</script>
 
-<br>
-</form>
 </body>
 </html>
+</body>
+</html>
+
+
+
+

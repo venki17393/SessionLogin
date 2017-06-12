@@ -4,6 +4,8 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+
+
 @Entity
 public class Contact {
 	@Id String  ID;
@@ -19,8 +21,14 @@ public class Contact {
 		this.Email = email;
 		this.Name = name;
 		this.Password = password;
-		
+	
 	}
+
+	public String getName() {
+		return Name;
+	}
+
+	
 
 	public Contact(String email, String name) {
 		this.ID=email;
