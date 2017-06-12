@@ -26,6 +26,7 @@ public class GoogleResp extends HttpServlet {
 			String authcode = req.getParameter("code");
 			String error = req.getParameter("error");
 			GoogleInfo post = null;
+			
 
 			if ("access_denied".equals(error)) {
 				resp.sendRedirect("login?access_denied");
@@ -34,7 +35,7 @@ public class GoogleResp extends HttpServlet {
 
 			else {
 				StringBuffer reqUrl = req.getRequestURL();
-				String accessToken = GoogleService.getAccessToken(authcode,reqUrl);
+				String accessToken = GoogleService.getAccessToken(authcode, reqUrl);
 				if (accessToken == null) {
 					/// login?error=token_fetch_error
 					resp.sendRedirect("login?error=token_fetch_error");
@@ -42,9 +43,9 @@ public class GoogleResp extends HttpServlet {
 				}
 
 				else {
-				
+
 					post = GoogleService.getUserInfo(accessToken);
-				
+
 				}
 
 				if (post != null) {

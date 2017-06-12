@@ -85,6 +85,7 @@ public class Check extends HttpServlet {
 			resp.sendRedirect("login");
 		} else {
 			HttpSession s1 = req.getSession();
+		
 			s1.setAttribute("email", email);
 			resp.sendRedirect("dashboard");
 		}
