@@ -25,8 +25,18 @@ public class UserInfoServlet extends HttpServlet {
 		try {
 
 			JSONObject email = SessionHelper.getUserInfo(value, resp);
+			
+			  String info = email.toString(); 
+			  ObjectMapper mapper = new ObjectMapper(); 
+			 /* UserInfo user = mapper.readValue(info,UserInfo.class); 
+			 
+			  PrintWriter out = resp.getWriter(); 
+			  System.out.println(user.getEmail());
+			  out.println("hello," + user.getEmail());*/
+			 
+
 			PrintWriter out = resp.getWriter();
-			out.println("hello," + email);
+			out.println(email);
 		} catch (EntityNotFoundException | JSONException e) {
 			// resp.sendRedirect("dashboard");
 		}
