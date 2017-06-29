@@ -51,8 +51,9 @@ public class GoogleService {
 		while ((line = reader.readLine()) != null) {
 			outputString += line;
 		}
+		System.out.println(outputString);
 		GoogleInfo info = mapper.readValue(outputString, GoogleInfo.class);
-
+	
 		return info;
 
 	}

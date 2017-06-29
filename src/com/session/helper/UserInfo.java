@@ -1,15 +1,12 @@
 package com.session.helper;
 
 public class UserInfo {
-	String Email;
-
+	String email;
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
-	public void setEmail(String email) {
-		Email = email;
-	}
+	
 	
 
 }

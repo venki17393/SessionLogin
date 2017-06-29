@@ -20,6 +20,10 @@ HttpSession s1 = req.getSession(false);
 if(s1 != null) {
 	s1.invalidate();	
 	resp.sendRedirect("login");
+	resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); 
+	resp.setHeader("Pragma", "no-cache"); 
+	resp.setDateHeader("Expires", 0);
+	
 }
 else {
 	resp.sendRedirect("login");

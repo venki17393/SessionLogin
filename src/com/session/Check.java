@@ -3,6 +3,7 @@ package com.session;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -31,9 +32,13 @@ public class Check extends HttpServlet {
 
 		String email = SessionHelper.currentUser(req);
 		if (email != null) {
-
+			resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); 
+			resp.setDateHeader("Expires", 0);
 			req.getRequestDispatcher("a.html").include(req, resp);
+			
 		} else {
+			resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); 
+			resp.setDateHeader("Expires", 0);
 			resp.sendRedirect("login");
 		}
 	}
@@ -85,8 +90,9 @@ public class Check extends HttpServlet {
 			resp.sendRedirect("login");
 		} else {
 			HttpSession s1 = req.getSession();
-		
+
 			s1.setAttribute("email", email);
+			
 			resp.sendRedirect("dashboard");
 		}
 

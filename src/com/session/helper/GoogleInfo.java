@@ -11,7 +11,15 @@ public class GoogleInfo {
 	private String family_name;
 	private String picture;
 	private String hd;
+	private String link;
 	private String locale;
+	private String gender;
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	public String getLocale() {
 		return locale;
 	}
@@ -20,6 +28,12 @@ public class GoogleInfo {
 	}
 	public String getId() {
 		return id;
+	}
+	public String getLink() {
+		return link;
+	}
+	public void setLink(String link) {
+		this.link = link;
 	}
 	public void setId(String id) {
 		this.id = id;

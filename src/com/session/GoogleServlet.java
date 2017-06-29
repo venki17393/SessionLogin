@@ -22,7 +22,9 @@ public class GoogleServlet extends HttpServlet {
 		String oauth = "https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&access_type=offline&include_granted_scopes=true&state=/googleresp&redirect_uri="
 				+ url
 				+ "&response_type=code&client_id=905323826918-g2vne7tcluchca01k6giosj88hhbc3el.apps.googleusercontent.com&prompt=consent";
-
+		resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); 
+		resp.setDateHeader("Expires", 0);
+		
 		resp.sendRedirect(oauth);
 	}
 
