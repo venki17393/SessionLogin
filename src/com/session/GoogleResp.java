@@ -56,6 +56,9 @@ public class GoogleResp extends HttpServlet {
 						if (isPresent) {
 							HttpSession s1 = req.getSession();
 							s1.setAttribute("email", email);
+							resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); 
+							resp.setDateHeader("Expires", 0);
+							
 							resp.sendRedirect("dashboard");
 
 						} else {
@@ -70,6 +73,9 @@ public class GoogleResp extends HttpServlet {
 							}
 							s1 = req.getSession();
 							s1.setAttribute("email", email);
+							resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); 
+							resp.setDateHeader("Expires", 0);
+							
 							resp.sendRedirect("dashboard");
 						}
 					}

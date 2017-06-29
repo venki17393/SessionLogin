@@ -13,6 +13,8 @@ import javax.servlet.ServletContextEvent;
 public class OfyHelper implements ServletContextListener {
   public void contextInitialized(ServletContextEvent event) {
       ObjectifyService.register(Contact.class);
+      ObjectifyService.register(TrendingHashtag.class);
+      ObjectifyService.register(TrendsWithDate.class);
       
   }
 

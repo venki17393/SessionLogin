@@ -53,7 +53,7 @@ public class GoogleService {
 		}
 		System.out.println(outputString);
 		GoogleInfo info = mapper.readValue(outputString, GoogleInfo.class);
-
+	
 		return info;
 
 	}

@@ -19,11 +19,30 @@ function getUserInfo() {
   xhttp.open("GET", "/userinfo", true);
   xhttp.send();
 }
+var date = document.getElementById("getFeeds");
+console.log(date.value);
+
+function getFeeds(){
+var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+   
+    }
+  };
+  xhttp.open("GET", "/showFeeds", true);
+  xhttp.send();
+
+}
 
 
 </script>
+
 	<form action="logout" method="get">
-		<br> <input type="submit" value="Logout"> <br>
+	 <input type="button" name="getFeeds" value="ShowTrends"  id="getFeeds" onclick="getFeeds()"><br>
+	
+	<br>
+	<br>
+	 <input type="submit" value="Logout"> <br>
 	</form>
 </body>
 </html>

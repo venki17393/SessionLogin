@@ -34,6 +34,7 @@ public class UserInfoServlet extends HttpServlet {
 			  System.out.println(user.getEmail());
 			  out.println("hello," + user.getEmail());*/
 			 
+			  
 
 			PrintWriter out = resp.getWriter();
 			out.println(email);
