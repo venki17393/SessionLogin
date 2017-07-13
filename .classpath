@@ -2,13 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
-		<attributes>
-			<attribute name="owner.project.facets" value="java"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/User.FULL328-WIN.001/AppData/Local/Microsoft/Windows/INetCache/IE/SAHRQULG/jackson-all-1.9.0[1].jar"/>
 	<classpathentry kind="lib" path="C:/Users/User.FULL328-WIN.001/Downloads/objectify-5.0.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/User.FULL328-WIN.001/Downloads/guava-20.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

@@ -18,7 +18,7 @@ public class AnyWhereWorksServlet extends HttpServlet {
 		String url = req.getRequestURL() + "resp";
 		System.out.println(url);
 
-		String oauth = "https://staging-fullcreative-dot-full-auth.appspot.com/o/oauth2/auth?response_type=code&client_id=2a9ac-2baf139b82055cc1e9d6974edf536f2c&scope= awapis.identity &redirect_uri="+url+"&approval_prompt=force&state=state-token-79sdfs9d7fg907fsud987f";
+		String oauth = "https://staging-fullcreative-dot-full-auth.appspot.com/o/oauth2/auth?response_type=code&client_id=2a9ac-2baf139b82055cc1e9d6974edf536f2c&scope= awapis.feeds.write &redirect_uri="+url+"&approval_prompt=force&state=state-token-79sdfs9d7fg907fsud987f&access_type=offline";
 		resp.sendRedirect(oauth);
 	}
 

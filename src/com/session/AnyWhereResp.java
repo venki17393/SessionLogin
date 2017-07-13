@@ -23,7 +23,7 @@ public class AnyWhereResp extends HttpServlet {
 			String authcode = req.getParameter("code");
 			String error = req.getParameter("error");
 			AnyWhereUser post = null;
-//			System.out.println(authcode);
+		System.out.println(authcode);
 //			System.out.println(error);
 			if ("access_denied".equals(error)) {
 				resp.sendRedirect("login?access_denied");
@@ -41,8 +41,9 @@ public class AnyWhereResp extends HttpServlet {
 				}
 
 				else {
+					//post = AnyWhereService.getUserInfo(accessToken);
 					post = AnyWhereService.getUserInfo(accessToken);
-					//System.out.println(post);
+					System.out.println("HEllo"+post);
 				}
 			}
 		

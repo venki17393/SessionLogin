@@ -12,13 +12,22 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<servlet-name>SessionManag</servlet-name>
 		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SaveTrends</servlet-name>
+		<servlet-class>com.session.SaveTrendsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveTrends</servlet-name>
+		<url-pattern>/saveTrends</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>ShowFeeds</servlet-name>
 		<servlet-class>com.session.ShowFeedsServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ShowFeeds</servlet-name>
-		<url-pattern>/showFeeds</url-pattern>
+		<url-pattern>/trends/*</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>GoogleResp</servlet-name>

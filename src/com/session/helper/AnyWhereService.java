@@ -1,17 +1,21 @@
 package com.session.helper;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
 import com.google.api.server.spi.Client;
+import com.google.appengine.labs.repackaged.org.json.JSONException;
+import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
 
 
@@ -39,9 +43,10 @@ public class AnyWhereService {
 		while ((line = reader.readLine()) != null) {
 			outputString += line;
 		}
-		System.out.println(outputString);
+		//System.out.println(outputString);
 		AnyWhereInfo anywhereToken = mapper.readValue(outputString, AnyWhereInfo.class);
 		if (anywhereToken != null) {
+			System.out.println("Referesh "+anywhereToken.getRefresh_token());
 			return anywhereToken.getAccess_token();
 		} else {
 			return null;
@@ -50,13 +55,14 @@ public class AnyWhereService {
 
 	public static AnyWhereUser getUserInfo(String accesstoken) throws IOException {
 		AnyWhereUser aj;
+		System.out.println("User Info");
 		URL url = new URL("https://api-dot-staging-fullspectrum.appspot.com/api/v1/user/me");
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("GET");
+		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/json");
 		con.setRequestProperty("Authorization", "Bearer " + accesstoken);
 		con.setDoOutput(true);
-		
+
 		String line, outputString = "";
 		BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		while ((line = reader.readLine()) != null) {
@@ -73,4 +79,7 @@ public class AnyWhereService {
 		return ino;
 
 	}
+	
+	
+		
 }

@@ -28,7 +28,6 @@ public class PostServlet extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		ObjectMapper mapper = new ObjectMapper();
 		
-		
 
 		PostPojo post = null;
 
