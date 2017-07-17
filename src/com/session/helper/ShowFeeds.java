@@ -27,6 +27,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -249,10 +250,10 @@ public class ShowFeeds {
 		}
 	}
 	public String requestNewAccessToken(String refreshToken) throws IOException{
-		
+		ObjectMapper mapper = new ObjectMapper();
 		URL url = new URL("https://staging-fullcreative-dot-full-auth.appspot.com/o/oauth2/v1/token");
 		String params = "refresh_token="+refreshToken
-				+ "&client_id=2a9ac-2baf139b82055cc1e9d6974edf536f2c&client_secret=T7_Buj9BRe2odJuV-iASsgowJ4xFFmxDS1-7DaC2&grant_type="+refreshToken;
+				+ "&client_id=2a9ac-2baf139b82055cc1e9d6974edf536f2c&client_secret=T7_Buj9BRe2odJuV-iASsgowJ4xFFmxDS1-7DaC2&grant_type=refresh_token";
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -269,8 +270,9 @@ public class ShowFeeds {
 		}
 		System.out.println("Refresh response"+outputString);
 		
-		
-	return null;	
+		RefreshToken token = mapper.readValue(outputString, RefreshToken.class);
+		System.out.println("Access token refreshed : " + token.getAccess_token());
+	return token.getAccess_token();	
 		
 	}
 	
@@ -284,6 +286,9 @@ public class ShowFeeds {
 		String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdGFnaW5nLWZ1bGxjcmVhdGl2ZS5mdWxsYXV0aC5jb20iLCJpYXQiOjE0OTk5NDIxMjAsInVzZXJfaWQiOiIyYjE1YzhlNS04ODM2LTQyMDQtOWM1MC0zOGZmNWNkYWZhYjQiLCJleHAiOjE0OTk5NDkzMjAsImp0aSI6IjU4NDJiLlVETmUxMmtLdm4ifQ.JZwhrAA3G6sK13Rl67xNJKOb7v82s38KD4FH73ADNwE";
 		String refreshToken = "1d2fb1a20cM_ipgQOVZ2KPRvGbV-_yXMJHtlv46wdLNXX";
 		System.out.println("Post Feed");
+		boolean success;
+		do{
+			success= true;
 		URL url = new URL("https://api-dot-staging-fullspectrum.appspot.com/api/v1/feed");
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("POST");
@@ -314,7 +319,7 @@ public class ShowFeeds {
 		ObjectMapper mapper = new ObjectMapper();
 		LinkedHashMap<String, Object> finalJson = new LinkedHashMap<String, Object>();
 		finalJson.put("content",message);
-		finalJson.put("activity","update");
+		finalJson.put("type","update");
 		System.out.println("Json is "+finalJson);
 		String response = mapper.writeValueAsString(finalJson);
 		System.out.println("Response is "+response);
@@ -328,9 +333,11 @@ public class ShowFeeds {
 		System.out.println(outputString);
 		
 		if(responseCode==401){
+			success=false;
 			accessToken=requestNewAccessToken(refreshToken);
+			System.out.println(accessToken);
 		}
-
+		}while(!success);
 	}
 
 }
